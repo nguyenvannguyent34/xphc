@@ -219,6 +219,9 @@
       justify-content:flex-end;
       flex-wrap:wrap;
     }
+    .search-actions > div:only-child{
+      margin-left:auto;
+    }
     .search-actions button{
       min-width:140px;
     }
@@ -486,10 +489,7 @@
                 <button id="btnReset" class="secondary" type="button">Xóa lọc</button>
               </div>
               <div>
-                <label>&nbsp;</label>
-                <button id="btnReload" class="secondary" type="button">Upload dữ liệu</button>
-                <input id="manualFileInput" type="file" accept=".xlsx,.xls" class="hidden" />
-              </div>
+                <label>&nbsp;</label></div>
             </div>
           </div>
         </div>
@@ -603,7 +603,6 @@
   <script>
     (() => {
       const EXCEL_FILE = 'XPHC.xlsx';
-      const LOCAL_PREF_KEY = 'pc07_xphc_lookup_user_prefs_v1';
       const state = {
         records: [],
         filtered: [],
@@ -1224,7 +1223,6 @@
 
         updateSelectedSubjectLabel();
         updateFacilityPreview();
-        saveLocalPrefs();
 
         if (!normalizedKeyword) {
           state.filtered = [];
@@ -1281,7 +1279,6 @@
         $('subjectOrganization').checked = false;
         updateFacilityPreview();
         updateSelectedSubjectLabel();
-        saveLocalPrefs();
         runSearch();
       }
 
@@ -1437,8 +1434,6 @@
       $('resultBody').addEventListener('change', handleViolationCheckboxChange);
       $('selectedViolationBody').addEventListener('change', handleViolationCheckboxChange);
       $('btnReset').addEventListener('click', resetFilters);
-      $('btnReload').addEventListener('click', () => $('manualFileInput').click());
-      $('manualFileInput').addEventListener('change', async (event) => {
         const file = event.target.files && event.target.files[0];
         if (!file) return;
         try {
@@ -1453,22 +1448,18 @@
 
       $('facilityName').addEventListener('input', () => {
         updateFacilityPreview();
-        saveLocalPrefs();
       });
 
       $('keywordInput').addEventListener('input', () => {
         setSelectedPanelVisible(false);
-        saveLocalPrefs();
         runSearch();
       });
       $('subjectIndividual').addEventListener('change', () => {
         setSelectedPanelVisible(false);
-        saveLocalPrefs();
         runSearch();
       });
       $('subjectOrganization').addEventListener('change', () => {
         setSelectedPanelVisible(false);
-        saveLocalPrefs();
         runSearch();
       });
 
